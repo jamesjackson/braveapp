@@ -1,6 +1,8 @@
 var restify = require('restify');
 var passport = require('passport');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var fs = require('fs');
 require('./modules/config/passport')(passport);
 
@@ -28,6 +30,27 @@ server.use(restify.CORS());
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
+
+server.use(session({
+    key : 'SessionKey',
+    secret : 'CATONTHEKEYBOARD',
+    cookie : {
+        path : '/',
+        httpOnly : true,
+        maxAge : null
+    },
+    resave: true,
+    saveUninitialized: true,
+    store : new MongoStore({
+        url : dbURL,
+        collection : 'sessions',
+        stringify : false
+    }).on('connected', function(result) {
+        console.log('Connected to sessions db!');
+        return;
+
+    })
+}));
 
 server.use(passport.initialize());
 server.use(passport.session());
