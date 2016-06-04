@@ -13,10 +13,6 @@ gulp.task('nodemon', function() {
   });
 });
 
-gulp.task('default', function() {
-  exec('source ./private/env-vars');
-});
-
 gulp.task('html', function(){
   return gulp.src('./src/*.ejs')
   .pipe(ejs({})
