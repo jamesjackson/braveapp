@@ -12,11 +12,10 @@ server.head('/hello/:name', respond);
 
 server.use(restify.CORS());
 
-
-// server.get(/\/?.*/, restify.serveStatic({
-//     default: 'login.html',
-//     directory: './public'
-// }));
+server.get(/\/?.*/, restify.serveStatic({
+    default: 'login.html',
+    directory: './public'
+}));
 
 server.listen(process.env.PORT || 8080, function() {
     return console.log('%s listening at %s', server.name, server.url);
