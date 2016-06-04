@@ -1,24 +1,16 @@
 module.exports = function(server, restify, passport) {
 
   server.get('/auth/facebook',
-    passport.authenticate('facebook')
+    passport.authenticate('facebook', {scope: 'email'})
   );
 
   //facebook auth path
   server.get('/auth/facebook/callback',
       passport.authenticate('facebook', {
-          session : true,
-          failureRedirect : '/login'
+          session : true
       }),
-      function(req, res){
-          res.redirect('/welcome')
-      },
-      function(err,req,res,next) {
-          // You could put your own behavior in here, fx: you could force auth again...
-          // res.redirect('/auth/facebook/');
-          if(err) {
-              res.redirect('/auth/facebook/')
-          }
+      function(req, res, next){
+        res.redirect('/welcome.html', next);
       }
   );
 
