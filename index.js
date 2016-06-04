@@ -36,6 +36,9 @@ var options = {
 }
 
 mongoose.connect(dbURL, options); // connect to our database
+mongoose.connection.on('error', function (err) {
+ console.log('error');
+});
 
 server.use(restify.CORS());
 server.use(restify.acceptParser(server.acceptable));
@@ -53,8 +56,6 @@ var options = {
 		sslCA: ca // cert from compose.io dashboard
 	}
 }
-
-mongoose.connect(dbURL, options); // connect to our database
 
 require('./modules/config/routes.js')(server, restify, passport);
 
