@@ -1,0 +1,25 @@
+{
+  "name": "braveapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesjackson/braveapp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesjackson/braveapp/issues"
+  },
+  "homepage": "https://github.com/jamesjackson/braveapp#readme",
+  "dependencies": {
+    "restify": "^4.1.0"
+  },
+  "engines": {
+  "node": "5.5.0"
+  }
+}
