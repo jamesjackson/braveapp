@@ -62,7 +62,7 @@ module.exports = function(passport) {
                         newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     }
                     newUser.points = 0;
-                    newUser.photo = '';
+                    newUser.photo = 'graph.facebook.com/'+profile.id+'/picture?type=large';
 
                     // save our user to the database
                     newUser.save(function(err) {
