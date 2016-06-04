@@ -59,7 +59,7 @@ module.exports = function(passport) {
                     newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
                     newUser.facebook.first_name = profile.name.givenName;
                     newUser.facebook.last_name = profile.name.familyName;
-                    if ('email' in newUser.facebook){
+                    if ('emails' in profile){
                         newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
                     }
 
