@@ -17,9 +17,17 @@
   },
   "homepage": "https://github.com/jamesjackson/braveapp#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "gulp": "^3.9.1",
+    "gulp-env": "^0.4.0",
+    "gulp-nodemon": "^2.0.7",
+    "mongoose": "^4.4.19",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-restify": "^1.0.1",
     "restify": "^4.1.0"
   },
   "engines": {
-  "node": "5.5.0"
+    "node": "5.5.0"
   }
 }
