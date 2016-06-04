@@ -4,5 +4,4 @@ module.exports = function(server, restify, passport) {
 	    default: 'index.html',
 	    directory: './public'
 	}));
-
 }
