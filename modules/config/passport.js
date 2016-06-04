@@ -54,8 +54,8 @@ module.exports = function(passport) {
                     var newUser            = new User();
                     console.log(profile);
                     // set all of the facebook information in our user model
-                    newUser.facebook.id    = profile.id; // set the users facebook id
-                    newUser.facebook.token = token; // we will save the token that facebook provides to the user
+                    newUser.facebook.id    = profile.id; // set the users facebook id                   
+                    newUser.facebook.token = token; // we will save the token that facebook provides to the user                    
                     newUser.facebook.name  = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
                     newUser.facebook.first_name = profile.name.givenName;
                     newUser.facebook.last_name = profile.name.familyName;
@@ -75,5 +75,4 @@ module.exports = function(passport) {
         });
 
     }));
-
 };
