@@ -18,6 +18,7 @@ server.head('/hello/:name', respond);
 server.use(restify.acceptParser(server.acceptable));
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
+
 mongoose.connect(dbURL); // connect to our database
 mongoose.connection.on('error', function (err) {
  console.log(err);
