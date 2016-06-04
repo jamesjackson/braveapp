@@ -13,7 +13,7 @@ server.head('/hello/:name', respond);
 server.use(restify.CORS());
 
 server.get(/\/?.*/, restify.serveStatic({
-    default: 'login.html',
+    default: 'index.html',
     directory: './public'
 }));
 
