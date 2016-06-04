@@ -2,7 +2,6 @@ var restify = require('restify');
 var passport = require('passport');
 var mongoose = require('mongoose');
 var fs = require('fs');
-
 require('./modules/config/passport')(passport);
 
 var mongoCreds = {
@@ -22,6 +21,21 @@ function respond(req, res, next) {
 var server = restify.createServer();
 server.get('/hello/:name', respond);
 server.head('/hello/:name', respond);
+
+server.use(restify.acceptParser(server.acceptable));
+server.use(restify.queryParser());
+server.use(restify.bodyParser());
+
+var ca =[fs.readFileSync('private/cert.pem')];
+var options = {
+	mongos: {
+		ssl: true,
+		sslValidate: true,
+		sslCA: ca // cert from compose.io dashboard
+	}
+}
+
+mongoose.connect(dbURL, options); // connect to our database
 
 server.use(restify.CORS());
 server.use(restify.acceptParser(server.acceptable));
