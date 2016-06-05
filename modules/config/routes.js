@@ -10,9 +10,14 @@ module.exports = function(server, restify, passport) {
           session : true
       }),
       function(req, res, next){
-        res.redirect('/welcome.html', next);
+        res.redirect('/profile.html', next);
       }
   );
+
+  server.get('/profile.html', isLoggedIn, function(req, res, next) {
+    console.log(req.user);
+  });
+
   server.get(/\/?.*/, restify.serveStatic({
       default: 'index.html',
       directory: './public'
