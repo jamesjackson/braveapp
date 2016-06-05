@@ -32,6 +32,16 @@ h1 {
   background: #4f5680;
   min-height: 100vh;
 }
+
+.off-canvas-wrapper {
+  height: 100%;
+}
+
+.button.expanded.btn--login {
+  width: 200px;
+  margin: 0 auto;
+}
+
 .title-bar {
   background: #3a3f5f;
 }
@@ -39,6 +49,11 @@ h1 {
   color: #ffffff;
   font-family: 'Open Sans';
   font-weight: 400;
+}
+
+.btn--profile {
+  width: 200px;
+  margin: 0 auto;
 }
 
 /* events page */
