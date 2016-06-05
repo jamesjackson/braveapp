@@ -1,8 +1,5 @@
 function reqListener () {
-  var userName = document.querySelector('.user--name');
-  var data = JSON.parse(this.responseText);
-
-  userName.innerHTML = data.user;
+  console.log(this.responseText);
 }
 
 var oReq = new XMLHttpRequest();
