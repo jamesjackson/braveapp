@@ -7,12 +7,14 @@
   	<div class="row">
   	  <div class="small-12 columns">
   	    <label>Enter Code
-  	      <input type="text" placeholder="Code" />
+  	      <input type="text" class="input--code" placeholder="Code" />
   	    </label>
-  	    <a href="#" class="button">Redeem Code</a>
+  	    <a href="#" class="button btn--redeem" onclick="checkCode(document.querySelector('.input--code').value)">Redeem Code</a>
   	  </div>
   	</div>
+  	<span class="user--points"></span>
   </div>
 
+<script src="js/request.js"></script>
+
 <% include partials/footer %>
- 
