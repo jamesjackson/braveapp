@@ -74,6 +74,23 @@ module.exports = function(server, restify, passport) {
 
     })
 
+    server.get('/events', function (req, res, next) {
+
+        Event.find({}, function(err, events) {
+            if (err) throw err;
+
+            var key = "code";
+
+            events.forEach (function (e){
+                delete e._doc[key];
+                // console.log(e._doc);
+            });
+
+            res.send(200, events);
+        });
+
+    })
+
     server.get('/logout', function(req, res, next){
         req.logout();
         res.redirect('/');
