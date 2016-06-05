@@ -26,9 +26,15 @@ gulp.task('js', function() {
   .pipe(gulp.dest('./public/js'));
 })
 
+gulp.task('css', function() {
+  return gulp.src('./src/css/*.css')
+  .pipe(gulp.dest('./public/css'));
+})
+
 gulp.task('watch', function() {
   gulp.watch('./src/**/*.ejs', ['html']);
   gulp.watch('./src/js/*.js', ['js']);
+  gulp.watch('./src/css/*.css', ['css']);
 });
 
-gulp.task('default', ['html', 'js', 'nodemon', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'nodemon', 'watch']);
