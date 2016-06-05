@@ -37,23 +37,30 @@ module.exports = function(server, restify, passport) {
       }
   );
 
+  server.post('/redeemPoints', isLoggedIn, function(req, res, next){
+    req.user.points -= req.body.points;
+    req.user.save();
+    res.send(200, cleanUser(req.user));
+  });
+
   server.post('/earnPoints', isLoggedIn, function(req, res, next){
-    Event.findOne({'code' : req.body.code}, 'numPoints', function(err, event){
+    Event.findOne({'code' : req.body.code}, 'numPoints name', function(err, event){
        if (err){
         console.log(err);
         res.send(400, {});
        }
        if (event){
-          points = event._doc.numPoints;
-         req.user.points += points;
-         req.user.save();
-         var userinfo_clean = cleanUser(req.user);
-         userinfo_clean['pointsAdded'] = points;
-         res.send(200, userinfo_clean);
-       }else{
+        var points = event._doc.numPoints;
+        var name = event._doc.name;
+        req.user.points += points;
+        req.user.save();
+        var userinfo_clean = cleanUser(req.user);
+        userinfo_clean['pointsAdded'] = points;
+        userinfo_clean['eventName'] = name;
+        res.send(200, userinfo_clean);
+      }else{
         res.send(432,{});
-       }
-       
+      }
     });
 
   });
@@ -86,6 +93,23 @@ module.exports = function(server, restify, passport) {
                 throw err;
 
             res.send(201);
+        });
+
+    })
+
+    server.get('/events', function (req, res, next) {
+
+        Event.find({}, function(err, events) {
+            if (err) throw err;
+
+            var key = "code";
+
+            events.forEach (function (e){
+                delete e._doc[key];
+                // console.log(e._doc);
+            });
+
+            res.send(200, events);
         });
 
     })
