@@ -1,4 +1,8 @@
 
+.title-bar-left {
+	line-height: 35px;
+}
+
 /* mobile nav */
 
 ul.dropdown.menu li a {
