@@ -27,6 +27,7 @@ h1 {
 
 .off-canvas {
   background: #4f5680;
+  min-height: 100vh;
 }
 .title-bar {
   background: #4f5680
