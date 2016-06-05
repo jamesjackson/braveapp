@@ -1,3 +1,28 @@
 #redeem-page #redeem-success {
   display: none;
-} 
+}
+
+#desktop-menu ul {
+	list-style: none;
+	background-color: #3a3f5f;
+	margin: 0 0 0 0;
+    display: inline-block;
+    width: 100%;
+}
+
+#desktop-menu ul li {
+	float: left;
+}
+
+#desktop-menu ul li a {
+	text-decoration: none;
+	color: white;
+    line-height: 50px;
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 639px)  {
+	#desktop-menu {
+		display: none;
+	}
+}
