@@ -27,19 +27,17 @@ module.exports = function(server, restify, passport) {
       }
   );
 
-  server.post('/redeem', isLoggedIn, function(req, res, next){
+  server.post('/earnPoints', isLoggedIn, function(req, res, next){
     Event.findOne({'code' : req.body.code}, 'numPoints', function(err, event){
        if (err) return handleError(err);
        points = event._doc.numPoints;
        req.user.points += points;
        req.user.save();
        var userinfo_clean = cleanUser(req.user);
+       userinfo_clean['pointsAdded'] = points;
        res.send(200, userinfo_clean);
     });
-  });
 
-  server.get('/profile', isLoggedIn, function(req, res, next) {
-    console.log(req.user);
   });
 
   server.get('/user', isLoggedIn, function (req, res, next) {
