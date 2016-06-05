@@ -9,8 +9,6 @@ require('./modules/config/passport')(passport);
 var dbURL = process.env.MONGOHQ_URL;
 
 var server = restify.createServer();
-<<<<<<< cd61d8ac3463825756d246235d1f4d1dc31ca11b
-=======
 
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
@@ -18,7 +16,6 @@ mongoose.connect(dbURL); // connect to our database
 mongoose.connection.on('error', function (err) {
  console.log(err);
 });
->>>>>>> Merge conflict useless message
 
 
 server.use(restify.CORS());
