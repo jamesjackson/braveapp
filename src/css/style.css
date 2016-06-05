@@ -37,3 +37,23 @@ h1 {
   font-family: 'Open Sans';
   font-weight: 400;
 }
+
+/* events page */
+
+#events-page #events-list {
+
+}
+
+#events-page #events-list .event {
+  border-bottom: thick solid grey;
+  border-width: 0px;
+  border-bottom-width: 1px;
+}
+
+#events-page #events-list .event .date {
+  margin-left: 20px;
+}
+
+
+/* /events page */
+
