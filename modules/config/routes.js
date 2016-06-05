@@ -1,3 +1,7 @@
+
+// load up the user model
+
+
 module.exports = function(server, restify, passport) {
 
   server.get('/auth/facebook',
@@ -14,15 +18,37 @@ module.exports = function(server, restify, passport) {
       }
   );
 
-  server.get('/profile.html', isLoggedIn, function(req, res, next) {
+  server.get('/profile', isLoggedIn, function(req, res, next) {
     console.log(req.user);
   });
 
-  server.get(/\/?.*/, restify.serveStatic({
+  server.get('/user', isLoggedIn, function (req, res, next) {
+
+        userinfo = req.user;
+        console.log(userinfo);
+
+        var userinfo_clean = {
+            "user": userinfo.facebook.name,
+            "points": userinfo.points,
+            "photo": userinfo.photo
+        }
+        res.send(200, userinfo_clean);
+
+    })
+
+
+    server.get(/\/?.*/, restify.serveStatic({
       default: 'index.html',
       directory: './public'
   }));
+
+  server.get('/logout', function(req, res, next){
+    req.logout();
+    res.redirect('/');
+  });
+
 }
+
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {

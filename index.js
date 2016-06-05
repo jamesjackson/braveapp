@@ -62,7 +62,7 @@ var options = {
 		sslValidate: true,
 		sslCA: ca // cert from compose.io dashboard
 	}
-}
+};
 
 require('./modules/config/routes.js')(server, restify, passport);
 
