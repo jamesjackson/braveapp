@@ -1,3 +1,24 @@
+
+/* buttons */
+
+.button {
+	background-color: #616a9e;
+	border-radius: 25px;
+}
+
+.button:hover {
+	background-color: #575f8e;
+}
+
+#profile-page .button {
+	display: block;
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+
+/* /buttons */
+
 #redeem-page #redeem-success {
   display: none;
 }
@@ -21,8 +42,38 @@
     margin-left: 20px;
 }
 
+/* profile page */
+#profile-page {
+	margin-top: 20px;
+}
+
+#profile-page h1, #profile-page p {
+	color: white;
+	text-align: center;
+}
+
+#profile-page .user--photo {
+	display: block;
+	width: 200px;
+	margin: 0 auto;
+}
+
+#profile-page .user--photo img {
+	border-radius: 100px;
+}
+
+#profile-page .user--name {
+	
+}
+
+#profile-page .user--points {
+	
+}
+/* /profile page */
+
 @media only screen and (max-width: 639px)  {
 	#desktop-menu {
 		display: none;
 	}
 }
+

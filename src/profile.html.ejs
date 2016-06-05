@@ -3,16 +3,17 @@
 <body>
   <% include partials/nav %>
 
-  Profile
-
-  <p class="user--name"></p>
-  <p class="user--photo"></p>
-  <p class="user--points"></p>
-
-  <script src="js/request.js"></script>
-
-  <a href="#" class="button large">Volunteering Opportunities</a>
-  <a href="#" class="button large">Redeem Points</a>
-  <a href="#" class="button large">Rewards Listing</a>
+  <div id="profile-page">
+  	<p class="user--photo"></p>
+  	<h1 class="user--name"></h1>
+  	<p>Redeemable Points:</p>
+  	<p class="user--points"></p>
+	
+  	<script src="js/request.js"></script>
+	
+  	<a href="#" class="button large">Volunteering Opportunities</a>
+  	<a href="#" class="button large">Redeem Points</a>
+  	<a href="#" class="button large">Rewards Listing</a>
+  </div>
 
 <% include partials/footer %>
