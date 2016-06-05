@@ -37,4 +37,4 @@ gulp.task('watch', function() {
   gulp.watch('./src/css/*.css', ['css']);
 });
 
-gulp.task('default', ['nodemon', 'watch']);
+gulp.task('default', ['html', 'js', 'css', 'nodemon', 'watch']);
