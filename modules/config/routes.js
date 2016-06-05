@@ -1,6 +1,6 @@
 
-// load up the user model
-
+// load up the events model
+var Event = require('../models/events');
 
 module.exports = function(server, restify, passport) {
 
@@ -36,16 +36,40 @@ module.exports = function(server, restify, passport) {
 
     })
 
+    server.post('/events', function (req, res, next) {
+
+        // console.log(req.params);
+
+        var newEvent = new Event();
+
+        newEvent.name = req.params.name;
+        newEvent.date = req.params.date;
+        newEvent.description = req.params.description;
+        newEvent.sponsors = req.params.sponsors;
+        newEvent.address = req.params.address;
+        newEvent.schedule = req.params.schedule;
+        newEvent.map = req.params.map;
+        newEvent.code = req.params.code;
+
+        newEvent.save(function(err) {
+            if (err)
+                throw err;
+
+            res.send(201);
+        });
+
+    })
+
+    server.get('/logout', function(req, res, next){
+        req.logout();
+        res.redirect('/');
+    });
 
     server.get(/\/?.*/, restify.serveStatic({
       default: 'index.html',
       directory: './public'
   }));
-
-  server.get('/logout', function(req, res, next){
-    req.logout();
-    res.redirect('/');
-  });
+    
 
 }
 

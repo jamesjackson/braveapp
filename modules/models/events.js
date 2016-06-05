@@ -8,8 +8,10 @@ var eventsSchema = mongoose.Schema({
     sponsors : { type: String },
     address : { type: String },
     schedule : { type: String },
-    map : { type: String }
+    map : { type: String },
+    code : { type: String }
 });
+
 // methods ======================
 
 // add event
