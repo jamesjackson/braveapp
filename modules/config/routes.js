@@ -14,11 +14,15 @@ module.exports = function(server, restify, passport) {
           session : true
       }),
       function(req, res, next){
-        res.redirect('/welcome.html', next);
+        res.redirect('/profile.html', next);
       }
   );
 
-    server.get('/user', isLoggedIn, function (req, res, next) {
+  server.get('/profile', isLoggedIn, function(req, res, next) {
+    console.log(req.user);
+  });
+
+  server.get('/user', isLoggedIn, function (req, res, next) {
 
         userinfo = req.user;
         console.log(userinfo);
