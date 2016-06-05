@@ -7,6 +7,11 @@ function reqListener () {
   if (window.location.href.indexOf("profile") != -1) {
     buildProfile();
   }
+
+  if (window.location.href.indexOf("points") != -1) {
+    var pointsContainer = document.querySelector('.user--points');
+    pointsContainer.innerHTML = 'Total Points: ' + data.points;
+  }
 }
 
 // build profile
@@ -16,7 +21,7 @@ function buildProfile () {
 
   // user profile
   userName.innerHTML = data.user;
-  userPoints.innerHTML = 'Total Points:' + data.points;
+  userPoints.innerHTML = 'Total Points: ' + data.points;
   userPhoto.innerHTML = '<img src="http://' + data.photo + '" />';
 };
 
@@ -80,9 +85,9 @@ var numberPattern = /\d+/g;
 [].forEach.call(redeemButtons, function(button) {
   button.addEventListener('click', function(){
     var pointValue = parseInt(button.previousSibling.previousSibling.innerHTML.match(numberPattern));
-    var reward = button.previousSibling.previousSibling.previousSibling.previousSibling;
-    console.log(pointValue);
-    redeemPoints(pointValue, reward);
+    var reward = button.previousSibling.parentNode.querySelector('h3').innerHTML;
+    if (pointValue <=  data.points) {
+      redeemPoints(pointValue, reward);
+    } else { alert('Keep volunteering to earn more points!')}
   })
-  // console.log();
 });
