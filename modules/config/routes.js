@@ -36,6 +36,7 @@ module.exports = function(server, restify, passport) {
        var userinfo_clean = cleanUser(req.user);
        res.send(200, userinfo_clean);
     });
+
   });
 
   server.get('/user', isLoggedIn, function (req, res, next) {
