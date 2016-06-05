@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "source ./private/env-vars && gulp",
-    "start": "node app",
-    "postinstall": "gulp default"
+    "dev": "source ./private/env-vars && gulp"
   },
   "repository": {
     "type": "git",
