@@ -54,6 +54,9 @@ h1 {
   margin-left: 20px;
 }
 
+#redeem-page #redeem-success {
+  display: none;
+}
 
 /* /events page */
 
