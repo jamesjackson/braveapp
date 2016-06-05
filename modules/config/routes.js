@@ -11,6 +11,16 @@ function cleanUser(userinfo){
   return userinfo_clean
 }
 
+function makeid(length){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < length; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 module.exports = function(server, restify, passport) {
 
   server.get('/auth/facebook',
@@ -27,15 +37,30 @@ module.exports = function(server, restify, passport) {
       }
   );
 
+  server.post('/redeemPoints', isLoggedIn, function(req, res, next){
+    req.user.points -= req.body.points;
+    req.user.save();
+    res.send(200, cleanUser(req.user));
+  });
+
   server.post('/earnPoints', isLoggedIn, function(req, res, next){
-    Event.findOne({'code' : req.body.code}, 'numPoints', function(err, event){
-       if (err) return handleError(err);
-       points = event._doc.numPoints;
-       req.user.points += points;
-       req.user.save();
-       var userinfo_clean = cleanUser(req.user);
-       userinfo_clean['pointsAdded'] = points;
-       res.send(200, userinfo_clean);
+    Event.findOne({'code' : req.body.code}, 'numPoints name', function(err, event){
+       if (err){
+        console.log(err);
+        res.send(400, {});
+       }
+       if (event){
+        var points = event._doc.numPoints;
+        var name = event._doc.name;
+        req.user.points += points;
+        req.user.save();
+        var userinfo_clean = cleanUser(req.user);
+        userinfo_clean['pointsAdded'] = points;
+        userinfo_clean['eventName'] = name;
+        res.send(200, userinfo_clean);
+      }else{
+        res.send(432,{});
+      }
     });
 
   });
@@ -52,8 +77,6 @@ module.exports = function(server, restify, passport) {
 
     server.post('/events', function (req, res, next) {
 
-        // console.log(req.params);
-
         var newEvent = new Event();
 
         newEvent.name = req.params.name;
@@ -63,7 +86,7 @@ module.exports = function(server, restify, passport) {
         newEvent.address = req.params.address;
         newEvent.schedule = req.params.schedule;
         newEvent.map = req.params.map;
-        newEvent.code = req.params.code;
+        newEvent.code = makeid(6);
 
         newEvent.save(function(err) {
             if (err)
