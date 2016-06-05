@@ -55,6 +55,15 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
+var ca =[fs.readFileSync('private/cert.pem')];
+var options = {
+	mongos: {
+		ssl: true,
+		sslValidate: true,
+		sslCA: ca // cert from compose.io dashboard
+	}
+};
+
 require('./modules/config/routes.js')(server, restify, passport);
 
 server.listen(process.env.PORT || 8080, function() {
