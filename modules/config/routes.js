@@ -38,9 +38,14 @@ module.exports = function(server, restify, passport) {
   );
 
   server.post('/redeemPoints', isLoggedIn, function(req, res, next){
-    req.user.points -= req.body.points;
-    req.user.save();
-    res.send(200, cleanUser(req.user));
+    if (req.user.points > req.body.points){
+      req.user.points -= req.body.points;
+      req.user.save();
+      res.send(200, cleanUser(req.user));
+    }else{
+      res.send(432, {message : "Not enough points."})
+    }
+    
   });
 
   server.post('/earnPoints', isLoggedIn, function(req, res, next){
@@ -49,10 +54,12 @@ module.exports = function(server, restify, passport) {
         console.log(err);
         res.send(400, {});
        }
-       if (event){
+
+       if (event && (req.user.events.indexOf(req.body.code) == -1)) {
         var points = event._doc.numPoints;
         var name = event._doc.name;
         req.user.points += points;
+        req.user.events.push(req.body.code)
         req.user.save();
         var userinfo_clean = cleanUser(req.user);
         userinfo_clean['pointsAdded'] = points;
@@ -86,6 +93,7 @@ module.exports = function(server, restify, passport) {
         newEvent.address = req.params.address;
         newEvent.schedule = req.params.schedule;
         newEvent.map = req.params.map;
+        newEvent.numPoints = req.params.numPoints;
         newEvent.code = makeid(6);
 
         newEvent.save(function(err) {

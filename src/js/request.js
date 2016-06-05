@@ -61,6 +61,9 @@ function checkCode(code) {
     else if (xhttp.readyState == 4 && (xhttp.status == 432 || xhttp.status == 500)) {
       alert('Sorry! That code was not found.');
     }
+    else if (xhttp.readyState == 4 && (xhttp.status == 405)) {
+      alert('You already entered that code.');
+    }
   };
   xhttp.open("POST", "/earnPoints", true);
   xhttp.setRequestHeader("Content-type", "application/json");

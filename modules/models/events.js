@@ -9,7 +9,8 @@ var eventsSchema = mongoose.Schema({
     address : { type: String },
     schedule : { type: String },
     map : { type: String },
-    code : { type: String }
+    code : { type: String },
+    numPoints : {type: Number}
 });
 
 // methods ======================
