@@ -14,17 +14,23 @@ module.exports = function(server, restify, passport) {
           session : true
       }),
       function(req, res, next){
-        res.redirect('/welcome.html', next);
+        res.redirect('/profile.html', next);
       }
   );
 
-    server.get('/user', isLoggedIn, function (req, res, next) {
+  server.get('/profile', isLoggedIn, function(req, res, next) {
+    console.log(req.user);
+  });
+
+  server.get('/user', isLoggedIn, function (req, res, next) {
 
         userinfo = req.user;
         console.log(userinfo);
 
         var userinfo_clean = {
-            "user": userinfo.facebook.name
+            "user": userinfo.facebook.name,
+            "points": userinfo.points,
+            "photo": userinfo.photo
         }
         res.send(200, userinfo_clean);
 
@@ -42,8 +48,6 @@ module.exports = function(server, restify, passport) {
   });
 
 }
-
-
 
 
 // route middleware to make sure a user is logged in

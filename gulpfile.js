@@ -21,8 +21,14 @@ gulp.task('html', function(){
   .pipe(gulp.dest('./public'));
 });
 
+gulp.task('js', function() {
+  return gulp.src('./src/js/*.js')
+  .pipe(gulp.dest('./public/js'));
+})
+
 gulp.task('watch', function() {
   gulp.watch('./src/**/*.ejs', ['html']);
+  gulp.watch('./src/js/*.js', ['js']);
 });
 
-gulp.task('default', ['html', 'nodemon', 'watch']);
+gulp.task('default', ['html', 'js', 'nodemon', 'watch']);
