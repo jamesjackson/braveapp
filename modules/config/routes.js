@@ -2,6 +2,15 @@
 // load up the events model
 var Event = require('../models/events');
 
+function cleanUser(userinfo){
+  var userinfo_clean = {
+      "user": userinfo.facebook.name,
+      "points": userinfo.points,
+      "photo": userinfo.photo
+  }
+  return userinfo_clean
+}
+
 module.exports = function(server, restify, passport) {
 
   server.get('/auth/facebook',
@@ -18,8 +27,15 @@ module.exports = function(server, restify, passport) {
       }
   );
 
-  server.post('/redeem', function(req, res, next){
-    
+  server.post('/redeem', isLoggedIn, function(req, res, next){
+    Event.findOne({'code' : req.body.code}, 'numPoints', function(err, event){
+       if (err) return handleError(err);
+       points = event._doc.numPoints;
+       req.user.points += points;
+       req.user.save();
+       var userinfo_clean = cleanUser(req.user);
+       res.send(200, userinfo_clean);
+    });
   });
 
   server.get('/profile', isLoggedIn, function(req, res, next) {
@@ -31,11 +47,7 @@ module.exports = function(server, restify, passport) {
         userinfo = req.user;
         console.log(userinfo);
 
-        var userinfo_clean = {
-            "user": userinfo.facebook.name,
-            "points": userinfo.points,
-            "photo": userinfo.photo
-        }
+        var userinfo_clean = cleanUser(userinfo);
         res.send(200, userinfo_clean);
 
     })
@@ -87,15 +99,4 @@ function isLoggedIn(req, res, next) {
 
     // if they aren't redirect them to the home page
     res.redirect('/auth/facebook', next);
-}
-
-// route middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-        return next();
-
-    // if they aren't redirect them to the home page
-    res.redirect('/login', next);
 }
