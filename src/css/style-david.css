@@ -1,4 +1,13 @@
 
+/* mobile nav */
+
+ul.dropdown.menu li a {
+	font-size: 18px;
+    font-weight: bold;
+}
+
+/* /mobile nav */
+
 /* buttons */
 
 .button {
