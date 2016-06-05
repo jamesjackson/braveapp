@@ -11,6 +11,16 @@ function cleanUser(userinfo){
   return userinfo_clean
 }
 
+function makeid(length){
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for( var i=0; i < length; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+}
+
 module.exports = function(server, restify, passport) {
 
   server.get('/auth/facebook',
@@ -29,13 +39,21 @@ module.exports = function(server, restify, passport) {
 
   server.post('/earnPoints', isLoggedIn, function(req, res, next){
     Event.findOne({'code' : req.body.code}, 'numPoints', function(err, event){
-       if (err) return handleError(err);
-       points = event._doc.numPoints;
-       req.user.points += points;
-       req.user.save();
-       var userinfo_clean = cleanUser(req.user);
-       userinfo_clean['pointsAdded'] = points;
-       res.send(200, userinfo_clean);
+       if (err){
+        console.log(err);
+        res.send(400, {});
+       }
+       if (event){
+          points = event._doc.numPoints;
+         req.user.points += points;
+         req.user.save();
+         var userinfo_clean = cleanUser(req.user);
+         userinfo_clean['pointsAdded'] = points;
+         res.send(200, userinfo_clean);
+       }else{
+        res.send(432,{});
+       }
+       
     });
 
   });
@@ -52,8 +70,6 @@ module.exports = function(server, restify, passport) {
 
     server.post('/events', function (req, res, next) {
 
-        // console.log(req.params);
-
         var newEvent = new Event();
 
         newEvent.name = req.params.name;
@@ -63,7 +79,7 @@ module.exports = function(server, restify, passport) {
         newEvent.address = req.params.address;
         newEvent.schedule = req.params.schedule;
         newEvent.map = req.params.map;
-        newEvent.code = req.params.code;
+        newEvent.code = makeid(6);
 
         newEvent.save(function(err) {
             if (err)
