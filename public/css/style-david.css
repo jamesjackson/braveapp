@@ -1,4 +1,8 @@
 
+.title-bar-left {
+	line-height: 35px;
+}
+
 /* mobile nav */
 
 ul.dropdown.menu li a {
@@ -51,11 +55,14 @@ ul.dropdown.menu li a {
 
 /* event list page */
 
-/*#events-page h1, #events-page p { 
-	color: black
+#events-page h2 {
+	font-weight: bold;
+	margin-top: 10px
 }
 
-#events-page */
+#events-page #events-list .points {
+	font-style: italic;
+}
 
 /* /event list page */
 
