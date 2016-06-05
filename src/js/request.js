@@ -21,10 +21,23 @@ function buildProfile () {
 };
 
 //points
-function redeemPoints (rewardCost, reward, n) {
+function redeemPoints (rewardCost, reward) {
   var answer = window.confirm('Are you sure you want to redeem ' + reward + ' for ' + rewardCost + ' points?');
     if (answer) {
-      checkCode(code);
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          // get updated data and update points
+          var updatedData = JSON.parse(xhttp.responseText);
+          updatePoints(updatedData.points);
+        }
+        else if (xhttp.readyState == 4 && (xhttp.status == 432 || xhttp.status == 500)) {
+          alert('Sorry! That code was not found.');
+        }
+      };
+      xhttp.open("POST", "/redeemPoints", true);
+      xhttp.setRequestHeader("Content-type", "application/json");
+      xhttp.send(JSON.stringify({"points": rewardCost }));
     }
     else {
       alert ("No Points Were Used.")
@@ -60,3 +73,16 @@ var oReq = new XMLHttpRequest();
 oReq.addEventListener("load", reqListener);
 oReq.open("GET", "/user");
 oReq.send();
+
+var redeemButtons = document.querySelectorAll('.btn--redeem-reward');
+var numberPattern = /\d+/g;
+
+[].forEach.call(redeemButtons, function(button) {
+  button.addEventListener('click', function(){
+    var pointValue = parseInt(button.previousSibling.previousSibling.innerHTML.match(numberPattern));
+    var reward = button.previousSibling.previousSibling.previousSibling.previousSibling;
+    console.log(pointValue);
+    redeemPoints(pointValue, reward);
+  })
+  // console.log();
+});
