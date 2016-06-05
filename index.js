@@ -55,6 +55,7 @@ server.use(session({
 server.use(passport.initialize());
 server.use(passport.session());
 
+<<<<<<< HEAD
 var ca =[fs.readFileSync('private/cert.pem')];
 var options = {
 	mongos: {
@@ -64,6 +65,8 @@ var options = {
 	}
 };
 
+=======
+>>>>>>> 01e730f1b8fa234b5cdf7079efd5ce9f44fe38e3
 require('./modules/config/routes.js')(server, restify, passport);
 
 server.listen(process.env.PORT || 8080, function() {

@@ -17,6 +17,12 @@ module.exports = function(server, restify, passport) {
       default: 'index.html',
       directory: './public'
   }));
+
+  server.get('/logout', function(req, res, next){
+    req.logout();
+    res.redirect('/');
+  });
+
 }
 
 // route middleware to make sure a user is logged in
