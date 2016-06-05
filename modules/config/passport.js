@@ -64,6 +64,7 @@ module.exports = function(passport) {
                     newUser.points = 0;
                     newUser.photo = 'graph.facebook.com/'+profile.id+'/picture?type=large';
 
+
                     // save our user to the database
                     newUser.save(function(err) {
                         if (err)
