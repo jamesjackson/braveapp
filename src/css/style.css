@@ -8,7 +8,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #0a0a0a;
-  background: #fefefe;
+  background: #4f5680;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
@@ -30,7 +30,7 @@ h1 {
   min-height: 100vh;
 }
 .title-bar {
-  background: #4f5680
+  background: #3a3f5f;
 }
 .off-canvas a {
   color: #ffffff;
