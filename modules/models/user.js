@@ -12,7 +12,8 @@ var userSchema = mongoose.Schema({
         last_name    : String,
     },
     photo        : String,
-    points       : Number
+    points       : Number,
+    events       : { type : Array , "default" : [] }
 });
 // methods ======================
 // generating a hash
