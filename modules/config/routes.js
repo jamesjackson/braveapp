@@ -34,6 +34,7 @@ module.exports = function(server, restify, passport) {
        req.user.points += points;
        req.user.save();
        var userinfo_clean = cleanUser(req.user);
+       userinfo_clean['pointsAdded'] = points;
        res.send(200, userinfo_clean);
     });
 
