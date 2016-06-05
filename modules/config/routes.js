@@ -24,7 +24,9 @@ module.exports = function(server, restify, passport) {
         console.log(userinfo);
 
         var userinfo_clean = {
-            "user": userinfo.facebook.name
+            "user": userinfo.facebook.name,
+            "points": userinfo.points,
+            "photo": userinfo.photo
         }
         res.send(200, userinfo_clean);
 
@@ -42,8 +44,6 @@ module.exports = function(server, restify, passport) {
   });
 
 }
-
-
 
 
 // route middleware to make sure a user is logged in
