@@ -2,4 +2,3 @@ node_modules
 .idea
 private/
 .npm-debug.log
-public/
