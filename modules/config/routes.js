@@ -36,6 +36,10 @@ module.exports = function(server, restify, passport) {
       directory: './public'
   }));
 
+  server.get('/logout', function(req, res, next){
+    req.logout();
+    res.redirect('/');
+  });
 
 }
 
