@@ -14,7 +14,7 @@ module.exports = function(server, restify, passport) {
       }
   );
 
-  server.get('/profile.html', isLoggedIn, function(req, res, next) {
+  server.get('/profile', isLoggedIn, function(req, res, next) {
     console.log(req.user);
   });
 
@@ -22,6 +22,12 @@ module.exports = function(server, restify, passport) {
       default: 'index.html',
       directory: './public'
   }));
+
+  server.get('/logout', function(req, res, next){
+    req.logout();
+    res.redirect('/');
+  });
+
 }
 
 // route middleware to make sure a user is logged in
